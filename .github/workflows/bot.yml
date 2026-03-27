@@ -1,0 +1,30 @@
+name: Discord RPC Bot 24/7
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Restarts every 6 hours automatically
+  workflow_dispatch:         # Lets you start it manually from GitHub
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350     # Runs for ~5h 50min, then next schedule kicks in
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Discord RPC Bot
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          IMAGE_URL: https://raw.githubusercontent.com/${{ github.repository }}/main/public/rpc-image.png
+        run: timeout 5h50m node index.js || true
