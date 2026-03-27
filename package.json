@@ -1,0 +1,16 @@
+{
+  "name": "discord-rpc-bot",
+  "version": "1.0.0",
+  "description": "Discord 24/7 custom RPC self-bot",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
